@@ -1,8 +1,8 @@
-import Main from '../components/Main';
+
 
 function Menu() {
     return (
-        <Main />
+       ''
     )
 }
 

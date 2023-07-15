@@ -1,10 +1,56 @@
-function Main(){
-    return (
-        <main className="main container">
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis dolorum perspiciatis ipsa recusandae alias ducimus nostrum minima commodi laborum numquam et, magni labore amet quaerat nulla, reiciendis suscipit officiis necessitatibus dicta laboriosam soluta. Dignissimos, esse ut sapiente iure reprehenderit ullam impedit magnam quam quaerat minus ab qui rem voluptas dicta nemo deleniti non quas unde, vitae dolores aliquid suscipit! Nobis illo obcaecati nostrum neque, quos ullam. Eveniet voluptatem magnam quaerat, impedit assumenda fuga iusto illum voluptas dicta voluptate exercitationem cum perferendis eum consectetur, provident doloribus dolorem consequuntur, libero omnis necessitatibus recusandae aperiam! Alias itaque, quae aspernatur neque sed quaerat sapiente.</p>
+import React, { useEffect } from 'react';
+import Homepage from '../pages/HomePage';
+import About from '../pages/AboutPage';
+import Login from '../pages/Login';
+import BookingPage from '../pages/BookingPage';
+import Menu from '../pages/Menu';
+import OrderOnline from '../pages/Order-Online';
+import RootLayout from '../pages/Root';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import { useReducer } from 'react';
+import {fetchAPI, submitAPI} from '../api/api';
+import ConfirmedBooking from '../pages/ConfirmedBooking';
 
-        </main>
-    )
+
+function Main() {
+  const today = new Date()
+  const initializeTimes= fetchAPI(today)
+
+   const updateTimes = (state,action) => {
+    if(action.type === 'RESERVE'){
+        const updatedSlots = fetchAPI(action.date)
+        return updatedSlots
+    }
+    return initializeTimes
 }
 
-export default Main
+  const [availableTimes,setAvailableTimes]= useReducer(updateTimes,initializeTimes)
+
+const reservationHandler = (date) => {
+    setAvailableTimes({type:'RESERVE', date: date })
+}
+
+  const router = createBrowserRouter([
+    {
+      path:'/',
+      element: <RootLayout />,
+      children: [
+        {index:true,element: <Homepage />},
+        {path:'/about',element: <About />},
+        {path:'/menu',element: <Menu />},
+        {path:'/order-online',element: <OrderOnline />},
+        {path:'/reservations',element: <BookingPage timeSlots={availableTimes} updateTimes={reservationHandler} />},
+        {path:'/login',element: <Login />},
+        {path:'/reservation-confirmed',element: <ConfirmedBooking />},
+      ]
+  }
+  ])
+  return (
+    <RouterProvider  router={router}/>
+  );
+}
+
+export default Main;

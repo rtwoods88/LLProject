@@ -1,7 +1,7 @@
-import Main from './components/Main';
+
 
 function Login(){
-    return <Main />
+  return ''
 }
 
 export default Login

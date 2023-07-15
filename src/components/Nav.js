@@ -1,39 +1,39 @@
-// import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import logo from "../images/Logo.svg"
 
-function Nav(){
+function Nav(props){
     return (
-            <ul className="navbar-nav">
-                <li
+            <ul className={"navbar-nav " + props.className}>
+                <li className='nav-item'><NavLink
                 to="/"
-                className='nav-item'>
-                  <a className="nav-link" href="/">Home</a>
-                </li>
-                <li
+                className={({isActive})=> isActive ? 'nav-link active' : 'nav-link'}>
+                  Home
+                </NavLink></li>
+                <li className='nav-item'><NavLink
                 to="/about"
-               className='nav-item'>
-                    <a className="nav-link" href="/">About</a>
-                </li>
-                <li
+               className={({isActive})=> isActive ? 'nav-link active' : 'nav-link'}>
+                    About
+                </NavLink></li>
+                <li className='nav-item'><NavLink
                 to="/menu"
-               className='nav-item'>
-                    <a className="nav-link" href="/">Menu</a>
-                </li>
-                <li
-                to="/reservation"
-               className='nav-item'>
-                    <a className="nav-link" href="/">Reservation</a>
-                </li>
-                <li
+               className={({isActive})=> isActive ? 'nav-link active' : 'nav-link'}>
+                    Menu
+                </NavLink></li>
+                <li className='nav-item'><NavLink
+                to="/reservations"
+               className={({isActive})=> isActive ? 'nav-link active' : 'nav-link'}>
+                    Reservation
+                </NavLink></li>
+                <li className='nav-item'><NavLink
                 to="/order-online"
-               className='nav-item'>
-                    <a className="nav-link" href="/">Order Online</a>
-                </li>
-                <li
+               className={({isActive})=> isActive ? 'nav-link active' : 'nav-link'}>
+                    Order Online
+                </NavLink></li>
+                <li className='nav-item'><NavLink
                 to="/login"
-               className='nav-item'>
-                    <a className="nav-link" href="/">Login</a>
-                </li>
+               className={({isActive})=> isActive ? 'nav-link active' : 'nav-link'}>
+                    Login
+                </NavLink></li>
             </ul>
     )
 }

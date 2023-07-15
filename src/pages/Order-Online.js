@@ -1,7 +1,7 @@
-import Main from './components/Main';
+
 
 function OrderOnline(){
-    return <Main />
+    return ''
 }
 
 export default OrderOnline
